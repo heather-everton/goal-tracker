@@ -16,6 +16,7 @@ const typeDefs = gql`
     goalTitle: String
     goalDescription: String
     goalType: String
+    goalStatus: String
     dueDate: String
     createdAt: String
     username: String
