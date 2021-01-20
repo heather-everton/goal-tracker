@@ -19,7 +19,7 @@ const goalSchema = new Schema(
     }, 
     goalStatus: {
       type: String,
-      default: "open",
+      default: "Planned",
       minlength: 1,
       maxlength: 280
     },

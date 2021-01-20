@@ -61,6 +61,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+        editUser: async (parent, args, context) => {
+          if (context.user) {
+            return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+          }
+    
+          throw new AuthenticationError('Not logged in');
+        },
         addGoal: async (parent, args, context) => {
             if (context.user) {
               const goal = await Goal.create({ ...args, username: context.user.username });
@@ -76,7 +83,27 @@ const resolvers = {
           
             throw new AuthenticationError('You need to be logged in!');
         },
+        editGoal: async (parent, args, context) => {
+          if (context.goal) {
+            return await Goal.findByIdAndUpdate(context.goal._id, args, { new: true });
+          }
+    
+          throw new AuthenticationError('Not logged in');
+        },
         addMilestone: async (parent, { goalId, milestoneTitle }, context) => {
+          if (context.user) {
+            const updatedGoal = await Goal.findOneAndUpdate(
+              { _id: goalId },
+              { $push: { milestones: { milestoneTitle, username: context.user.username } } },
+              { new: true, runValidators: true }
+            );
+        
+            return updatedGoal;
+          }
+        
+          throw new AuthenticationError('You need to be logged in!');
+        },
+        editMilestone: async (parent, { goalId, milestoneTitle }, context) => {
           if (context.user) {
             const updatedGoal = await Goal.findOneAndUpdate(
               { _id: goalId },

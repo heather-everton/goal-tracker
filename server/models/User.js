@@ -35,6 +35,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+    profilePhoto: {
+      type: String,
+      required: false
+    },
+    interests: [],
     goals: [
       {
         type: Schema.Types.ObjectId,
