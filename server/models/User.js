@@ -15,6 +15,21 @@ const userSchema = new Schema(
       unique: true,
       match: [/.+@.+\..+/, 'Must match an email address!']
     },
+    displayName: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    firstName: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true
+    },
     password: {
       type: String,
       required: true,
@@ -24,6 +39,12 @@ const userSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: 'Goal'
+      }
+    ],
+    friendRequests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
       }
     ],
     friends: [

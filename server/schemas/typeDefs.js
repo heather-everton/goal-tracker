@@ -17,8 +17,9 @@ const typeDefs = gql`
     goalDescription: String
     goalType: String
     goalStatus: String
-    dueDate: String
-    createdAt: String
+    startDate: Date
+    dueDate: Date
+    createdAt: Date
     username: String
     commentCount: Int
     comments: [Comment]
@@ -42,10 +43,13 @@ const typeDefs = gql`
   }
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
-    addGoal(goalTitle: String!, goalDescription: String!, goalType: String!, dueDate: String): Goal
+    addUser(username: String!, email: String!, displayName: String!, firstName: String!, lastName: String!,password: String!): Auth
+    addGoal(goalTitle: String!, goalDescription: String!, goalStatus: String!, goalCategory: String, startDate: Date!, dueDate: Date): Goal
+    addMilestone(goalId: ID!, milestoneTitle: String!): Goal
     addComment(goalId: ID!, commentBody: String!): Goal
-    addFriend(friendId: ID!): User
+    requestFriend(friendId: ID!): User
+    acceptFriend(friendId: ID!): User
+    deleteFriend(friendId: ID!): User
   }
 `;
 

@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const commentSchema = require('./Comment');
+const milestoneSchema = require('./Milestone');
 const dateFormat = require('../utils/dateFormat');
 
 const goalSchema = new Schema(
@@ -15,18 +16,26 @@ const goalSchema = new Schema(
         required: 'You need name a goal Description!',
         minlength: 1,
         maxlength: 280
-    },
-    goalType: {
-        type: String,
-        required: 'Please select your goal Type!',
-        minlength: 1,
-        maxlength: 280
-    },  
+    }, 
     goalStatus: {
+      type: String,
+      default: "open",
+      minlength: 1,
+      maxlength: 280
+    },
+    goalCategory: {
       type: String,
       minlength: 1,
       maxlength: 280
-    }, 
+    },
+    startDate: {
+      type: Date,
+      default: Date.now,
+    },
+    dueDate: {
+      type: Date,
+      default: Date.now,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -36,6 +45,7 @@ const goalSchema = new Schema(
       type: String,
       required: true
     },
+    milestones: [milestoneSchema],
     comments: [commentSchema]
   },
   {
